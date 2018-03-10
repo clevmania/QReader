@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">QReader</string>
+    <string name="decoded_qr">Decoding...</string>
+</resources>
