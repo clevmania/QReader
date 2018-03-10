@@ -2,6 +2,7 @@ package com.clevmania.qreader;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -60,5 +61,24 @@ public class MainActivity extends AppCompatActivity {
                 cameraSource.stop();
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PermissionID:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    try {
+                        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+
+                            return;
+                        }
+                        cameraSource.start(surfaceView.getHolder());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            break;
+        }
     }
 }
